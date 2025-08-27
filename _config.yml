@@ -72,7 +72,6 @@ collections:
     output: true
     permalink: /projects/:name/
     order:
-      - eyUpMaiden.md
       - minimalistBookClub.md
 
 sass:
