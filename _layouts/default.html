@@ -13,9 +13,7 @@
         <h4 class="post-description">{{site.description}}</h4>
 
         {% include navigation.html %}
-
-        {% seo %}
-
+        {% include analytics.html %}
         {% include favicon.html %}
 
         <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.1/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
@@ -40,6 +38,5 @@
           {% include social-footer.html %}
 
         </footer>
-        {% include analytics.html %}
    </body>
 </html>
