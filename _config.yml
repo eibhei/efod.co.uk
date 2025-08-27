@@ -1,10 +1,10 @@
 ### your site title here
 
 title: Eibhlín F. O'Dwyer
-description: music | linguistics | fiction | gender
+description: music | linguistics | fiction | gender | linux
 
 baseurl: "" #name of GitHub repository
-url: "https://beod.co.uk" #custom url to be used instead of GitHub repository
+url: "https://efod.co.uk" #custom url to be used instead of GitHub repository
 email: website@beod.co.uk
 
 author: "Eibhlín O'Dwyer"
@@ -16,7 +16,7 @@ paginate_path: /blog/page:num/
 
 # Social media links in footer
 bluesky: "eibhei.beod.co.uk"
-github: "0d-billie"
+github: "eibhei"
 instagram: "eibhei"
 mastodon: "@0d_billie"
 
