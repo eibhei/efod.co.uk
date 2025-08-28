@@ -3,7 +3,7 @@ layout: post
 title: "Have a Story for Every Letter of the Alphabet"
 date: 2025-08-28
 tags: [rules-for-life, alphabet-anecdotes]
-excerpt: ""
+excerpt: "Twenty six is more than you think"
 ---
 
 Years and years ago I saw this piece of advice, but for the life of me I cannot remember where I found it.[^1] Nor really can I recall if there was more to it than what follows, but I do think it's an incredibly useful bit of advice.
