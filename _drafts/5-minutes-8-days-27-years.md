@@ -6,6 +6,8 @@ tags: [rules-for-living]
 excerpt: "CHANGE ME BEFORE PUBLISHING"
 ---
 
+There are meanginful markers of time everywhere you look. 
+
 Find meaningful markers of time, use them liberally
 
 ### 10 Seconds

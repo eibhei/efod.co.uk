@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Very Flirtatious Neighbour"
+title: "N: A Very Flirtatious Neighbour"
 date: 2025-03-18
 tags: [alphabet-anecdotes]
 excerpt: "N is for neighbour, or possibly 'naughty'"
