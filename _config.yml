@@ -1,33 +1,60 @@
-### your site title here
-
+### Site Basics
 title: Eibhlín F. O'Dwyer
 description: music | linguistics | fiction | gender | linux
-
-baseurl: "" #name of GitHub repository
-url: "https://efod.co.uk" #custom url to be used instead of GitHub repository
-email: website@beod.co.uk
-
 author: "Eibhlín O'Dwyer"
 
-# Pagination
-paginate: 10
-permalink: /blog/:year/:title/
-paginate_path: /blog/page:num/
+baseurl: ""
+url: "https://efod.co.uk"
+email: website@beod.co.uk
 
-# Social media links in footer
+### Jekyll Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-email-protect
+  - jekyll-target-blank
+  - jekyll-feed
+
+### Social Media Handles
 bluesky: "eibhei.beod.co.uk"
 github: "eibhei"
 instagram: "eibhei"
 mastodon: "@0d_billie"
 
+### Publishing Settings
+show_drafts: false
+future: false
+timezone: Europe/London
+
+### Site Settings
 # Markdown
 highlighter: rouge
 markdown: kramdown
+sass:
+  sass_dir: /assets/css/_sass
+  style: compressed
 
-# Tracker
-analytics:
+# Page Settings
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+    order:
+      - minimalistBookClub.md
+exclude:
+  - README.md
+  - LICENSE.md
+include:
+  - _pages
 
-# optimization -> compress.html
+# Blog Settings
+paginate: 10
+permalink: /blog/:year/:title/
+paginate_path: /blog/page:num/
+feed:
+  excerpt_only: true
+
+# Optimisation settings
 compress_html:
   clippings:
     [
@@ -65,33 +92,3 @@ compress_html:
   blanklines: false
   profile: false
   startings: []
-
-#collection
-collections:
-  projects:
-    output: true
-    permalink: /projects/:name/
-    order:
-      - minimalistBookClub.md
-
-sass:
-  sass_dir: /assets/css/_sass
-  style: compressed
-
-include:
-  - node_modules
-  - _pages
-
-exclude:
-  - README.md
-  - LICENSE.md
-
-plugins:
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-email-protect
-  - jekyll-target-blank
-  - jekyll-feed
-
-feed:
-  excerpt_only: true
