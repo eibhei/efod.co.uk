@@ -3,6 +3,7 @@ layout: post
 title: "A Creation Myth"
 date: 2024-02-01
 tags: [fiction, rpgs]
+image: /assets/images/post_creation.jpg
 excerpt: "The creation story for a work-in-progress world I'm building."
 ---
 

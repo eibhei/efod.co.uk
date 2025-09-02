@@ -3,6 +3,7 @@ layout: post
 title: "A Dissertation"
 date: 2024-01-01
 tags: [linguistics, pdf] 
+image: /assets/images/post_dissertation.jpg
 excerpt: "Designing a framework for measuring inference generation and communicative efficacy during board-game play."
 ---
 

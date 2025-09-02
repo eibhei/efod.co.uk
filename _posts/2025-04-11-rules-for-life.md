@@ -3,6 +3,7 @@ layout: post
 title: "Rules for Living"
 date: 2025-04-11
 tags: [rules-for-living]
+image: /assets/images/post_rulesmain.jpg
 excerpt: "An antidote to Jordan B. Peterson"
 ---
 
