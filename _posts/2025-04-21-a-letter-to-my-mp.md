@@ -3,6 +3,7 @@ layout: post
 title: "A Letter to my MP"
 date: 2025-04-21
 tags: [gender,politics]
+image: /assets/images/post_dissertation.jpg
 excerpt: "I wrote to my MP for the first time"
 ---
 

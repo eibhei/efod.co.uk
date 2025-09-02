@@ -3,6 +3,7 @@ layout: post
 title: "Have a Story for Every Letter of the Alphabet"
 date: 2025-08-28
 tags: [rules-for-living, alphabet-anecdotes]
+image: /assets/images/post_alphabetstories.jpg
 excerpt: "Twenty six is more than you think"
 ---
 

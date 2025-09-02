@@ -9,11 +9,11 @@ email: website@beod.co.uk
 
 ### Jekyll Plugins
 plugins:
-  - jekyll-seo-tag
-  - jekyll-paginate
   - jekyll-email-protect
-  - jekyll-target-blank
   - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-target-blank
 
 ### Social Media Handles
 bluesky: "eibhei.beod.co.uk"
