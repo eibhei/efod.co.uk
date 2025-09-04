@@ -4,6 +4,7 @@ permalink: /
 profile:
   align: right
   image: profile.png
+image: /assets/images/profile.png
 published: true
 ---
 

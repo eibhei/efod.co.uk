@@ -7,6 +7,8 @@ baseurl: ""
 url: "https://efod.co.uk"
 email: website@beod.co.uk
 
+locale: en_GB
+
 ### Jekyll Plugins
 plugins:
   - jekyll-email-protect
