@@ -7,7 +7,7 @@ image: /assets/images/post_dissertation.jpg
 excerpt: "Designing a framework for measuring inference generation and communicative efficacy during board-game play."
 ---
 
-In 2021 I went back to univeristy to pursue a master's degree in Linguistics and English Language Teaching. I was initially inspired to return to education into linguistics by my daughter after playing a game of Cluedo and speaking French for much of it. The potential for teaching and learning languages through the use of board games was something that really interested me, and it formed the basis of the idea for my dissertation.
+In 2021 I went back to university to pursue a master's degree in Linguistics and English Language Teaching. I was initially inspired to return to education into linguistics by my daughter after playing a game of Cluedo and speaking French for much of it. The potential for teaching and learning languages through the use of board games was something that really interested me, and it formed the basis of the idea for my dissertation.
 
 When I knew a little more about the form my dissertation would take, I was a little frustrated to find that it wouldn't be as exciting as I had hoped. Given that I would a) not be able to work with children and b) would not be able to do anything longitudinal, it seemed that I would simply be forced to demonstrate that when it comes to learning vocabulary, playing a board game is one of many useful tools. An obvious conclusion, given the decades of existing research on the subject. I was hoping for something much grander... Or at least, less forgone.
 

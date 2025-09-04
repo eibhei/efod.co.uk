@@ -1,0 +1,15 @@
+name: Check spelling
+on: push
+
+jobs:
+  build:
+    name: Spell-checker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: rojopolis/spellcheck-github-actions@0.51.0
+      name: Spellcheck
+      with:
+        config_path: .github/workflows/config/spellcheck.yml
+        task_name: Markdown
+        token: ${{ secrets.GITHUB_TOKEN }}
