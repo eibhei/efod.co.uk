@@ -15,5 +15,8 @@ matrix:
       - code
       - pre
   sources:
-  - '**/*.md'
+  - "_posts/*.md"
+  - "_pages/*.md"
+  - "_drafts/*.md"
+  - "index.md"
   default_encoding: utf-8
