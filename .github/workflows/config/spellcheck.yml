@@ -9,6 +9,9 @@ matrix:
       - .github/workflows/config/spellcheck_wordlist.txt
   pipeline:
   - pyspelling.filters.markdown:
+      ignores:
+        - code
+        - pre
       markdown_extensions:
       - pymdownx.superfences:
   - pyspelling.filters.html:
