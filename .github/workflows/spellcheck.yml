@@ -1,9 +1,9 @@
-name: Check Spelling
+name: Check spelling
 on: push
 
 jobs:
   build:
-    name: Spellcheck
+    name: Spell-checker
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
