@@ -13,3 +13,4 @@ jobs:
       with:
         config_path: .github/workflows/config/spellcheck.yml
         task_name: Markdown
+        token: ${{ secrets.GITHUB_TOKEN }}

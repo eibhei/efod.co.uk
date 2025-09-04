@@ -12,3 +12,4 @@ jobs:
         files: "_posts/*.md" "_pages/*.md" "_drafts/*.md" "index.md"
         config_file: .github/workflows/config/markdownlint.yml
         dot: false
+        token: ${{ secrets.GITHUB_TOKEN }}
