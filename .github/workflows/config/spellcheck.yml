@@ -5,7 +5,8 @@ matrix:
     d: en_GB
   dictionary:
     encoding: utf-8
-    wordlists: ".github/workflows/config/spellcheck_wordlist.txt"
+    wordlists:
+      - .github/workflows/config/spellcheck_wordlist.txt
   pipeline:
   - pyspelling.filters.markdown:
   - pyspelling.filters.html:
