@@ -14,7 +14,7 @@ In my mid-twenties, while I was seeking a solution to the depression and sense o
 3. "Make friends with people who want the best for you."
 4. "Compare yourself to who you were yesterday, not to who someone else is today."
 5. "Do not let your children do anything that makes you dislike them."
-6. "Set your house in perfect order before you criticize the world."
+6. "Set your house in perfect order before you criticise the world."
 7. "Pursue what is meaningful (not what is expedient)."
 8. "Tell the truth – or, at least, don't lie."
 9. "Assume that the person you are listening to might know something you don't."
