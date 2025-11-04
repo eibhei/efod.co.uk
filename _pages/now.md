@@ -5,27 +5,27 @@ permalink: /now/
 published: true
 ---
 
-This is a <a href="https://nownownow.com/about">now page</a>. It was last updated on 27th August 2025.
+This is a <a href="https://nownownow.com/about">now page</a>. It was last updated on 4th November 2025.
 
 <p style="margin-top: 0.15em; margin-bottom: 0.15em">
 	<ul>
-		<li><strong><em>reading:</em></strong> <a href="https://en.wikipedia.org/wiki/Life_and_Death%3A_Twilight_Reimagined">Life and Death: Twilight Reimagined</a> by Stephanie Meyer </li>
+		<li><strong><em>reading:</em></strong> <a href="https://www.timminchin.com/you-dont-have-to-have-a-dream/">You Don't Have to Have a Dream</a> by Tim Minchin </li>
 		<li><strong><em>watching:</em></strong> <a href="https://brennanleemulligan.com/fantasy-high/">Fantasy High</a> by Dimension 20</li>
-		<li><strong><em>listening:</em></strong> to <a href="https://en.wikipedia.org/wiki/Random_Hand#Random_Hand">Random Hand</a> by Random Hand</li>
+		<li><strong><em>listening:</em></strong> <a href="https://en.wikipedia.org/wiki/From_the_Pyre">From the Pyre</a> by The Last Dinner Party</li>
 		<li><strong><em>learning:</em></strong> <a href="https://docs.ansible.com">Ansible</a>, <a href="https://github.com/kimdre/doco-cd">dococd</a>, and <a href="https://www.youtube.com/watch?v=-0Ao4t_fe0I">Cerice</a></li>
-		<li><strong><em>writing:</em></strong> New music</li>
-		<li><strong><em>playing:</em></strong> <a href="https://en.wikipedia.org/wiki/Root_%28board_game%29">Root</a></li>
+		<li><strong><em>writing:</em></strong> A metal album, exploring feelings around transitioning </li>
+		<li><strong><em>playing:</em></strong> <a href="https://en.wikipedia.org/wiki/Prince_of_Persia:_The_Lost_Crown">Prince of Persia: The Lost Crown</a></li>
 	</ul>
 </p>
 
 <p style="margin-top: 0.15em; margin-bottom: 0.75em; text-indent: 4ch;">
-		The Year of Clearing the Decks. I <a href="https://www.facebook.com/eyupmaiden/posts/pfbid02hKhVmCxfwVXLcZLN36R8iwxwvoZG7kZ9zJoqdPo5hEHD7P9xNzy6bSaJbH7iCNp8l">retired from Ey Up Maiden</a> at the start of August, and I've wound down a few other regular bits and bobs. What has been nice is things organically arising to take up some more of the free time. I'll be playing in a game of Mothership in September, and I've been able to put more time into reading and writing music. There are still assumptions, systems, and things in my life which I would like to wrap up as well, but the pace remains steady and slow. It's a struggle sometimes to remember that I don't need to just gut everything all at once, and smaller, iterative changes can be just as much a clearing of the decks.
+		Time seems so elastic at the moment. There are days where I feel I barely get to stop and look around, much less pick up a guitar and do some writing. That said, I have really been enjoying the process of writing my own music again. I'm getting a little stuck on a few ideas, and I think I'm learning that my approach to writing doesn't always make the inclusion of lyrics/vocals very easy. So there's a whole lot of changing and editing and tweaking to do. Then, of course, there is the fact that I am not super at lyric-writing. I do my best, but it is definitely not where my forte lies. In any event, I quipped to a friend online recently that if I keep up the current pace of writing, I should have something to share with the world in around 2030 or so! That said, it's been so fun to pick up a guitar and write without pressure again. That's tremendously freeing.
 </p>
 <p style="margin-top: 0.15em; margin-bottom: 0.75em; text-indent: 4ch;">
-    Something that isn't going away, and may even be getting more complex and involved are my various self-managed digital systems. I recently removed comments from my blog, as the Bluesky API was only intermittently available. My intention is to switch to using Mastodon for this purpose, but it's not necessarily going to be an easy switch to flip. Looking at what's out there, I suspect I might be about to dust off my coding skills to have exactly what I want. Elsewhere, I've been rationalising my homelab and Docker situations, and am in the process of introducing a CI/CD pipeline for my Docker Compose environment, to enable me to do testing before rolling out production-level changes.
+		I have been steadily trying to overhaul my personal productivity systems, perhaps to my detriment. I find that my to-do list balloons and builds up with absurd ease, and if I am not careful I can enter a state of total paralysis and panic. On the other hand, there are some systems and routines that I find help: weekly and monthly reviews of the past period of time, with a view to better structuring the coming week or month. Carving out some time after work to do some guided stretches; increasing my flexibility and giving me time to myself between work and parenting for the evening. There's still a lot of tweaking and changing and restructuring that I want to do, and I want to try to reduce my load rather than increase it. Progress is slow, but steady, and there is always the "fuck it, I'm never actually going to do this" of it all.
 </p>
 <p style="margin-top: 0.15em; text-indent: 4ch;">
-    My discipline for writing and regularly publishing continues to be absolutely atrocious. Part of the problem is the activation energy of pushing out changes to GitHub. I've been looking into whether or not I can schedule posts through Jekyll with CI/CD in GitHub, or similar. I find myself having lots of ideas and fewer and fewer opportunities to make good on them. The perennial "when X is there, I'll do it" feeling is hard to beat. I just need to get comments right. I just need to change the favicon. I just need to set up analytics. Ad nauseam. I'm working through the need to put things off until X is absolutely perfect, albeit slowly.
+		The pace of wedding planning is picking up, and it's nice to be making some headway with our list of jobs. I'm in the process of building our wedding website, and the draft version we put together last night is looking pretty good! Once it's been hosted, we'll finally be able to get the save-the-dates out (which currently point to this non-existent website). We've sorted out venues, photographers, celebrants, handfasting cords, and more. It's feeling really good to get into the swing of organising the wedding, and the principles we figured out with each other at the beginning are holding out very well. I recently saw an <a href="https://www.instagram.com/reel/DQaM1e9EgbW">Instagram Reel</a> which talked about love not being a case of two becoming one, but one becoming two, and two becoming more. The more I plan a wedding with B—, the more connected I feel. This isn't about becoming one (and my vows will reflect that I think), but about us becoming the truest versions of ourselves, where we are allowed to flourish in our strengths, and be supported where we need. It's a heady feeling.		
 </p>
 
 <h1>Ongoing Projects</h1>
