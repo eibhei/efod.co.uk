@@ -2,7 +2,7 @@
 layout: post
 title: "Advent Of Code 2025, Day 1"
 date: 2025-12-01
-tags: [code, aoc]
+tags: [python, aoc]
 excerpt: "In which I (re)discover the modulus function"
 image: /assets/images/post_aoc_25.1.jpg
 ---
