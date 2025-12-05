@@ -3,7 +3,7 @@ layout: post
 title: "Advent Of Code 2025, Day 5"
 date: 2025-12-05
 tags: [python, aoc]
-excerpt: ""
+excerpt: "In which doing something backwards is the correct way for some reason"
 image: /assets/images/post_aoc_25.5.jpg
 ---
 
