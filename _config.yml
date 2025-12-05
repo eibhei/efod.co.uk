@@ -42,6 +42,7 @@ collections:
     output: true
     permalink: /projects/:name/
     order:
+      - adventOfCode.md
       - minimalistBookClub.md
 exclude:
   - README.md
