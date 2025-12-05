@@ -10,7 +10,7 @@ image: /assets/images/post_aoc_25.4.jpg
 This is the fourth in a series of blog posts about the 2025 Advent of Code. For previous entries in this thrilling series, see
 <a href="/tag/aoc">here</a>.
 
-## Day 3: Printing Department
+## Day 4: Printing Department
 [Advent of Code: Day 4](https://adventofcode.com/2025/day/4)
 
 ### Part One
