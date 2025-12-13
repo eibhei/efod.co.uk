@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Advent Of Code 2025, Day 3 | Eibhlín F. O’Dwyer</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Advent Of Code 2025, Day 3" />
+<meta name="author" content="Eibhlín O'Dwyer" />
+<meta property="og:locale" content="en_GB" />
+<meta name="description" content="In which I write my first recursive function ever" />
+<meta property="og:description" content="In which I write my first recursive function ever" />
+<link rel="canonical" href="https://efod.co.uk/blog/2025/advent-of-code-2025-day-3/" />
+<meta property="og:url" content="https://efod.co.uk/blog/2025/advent-of-code-2025-day-3/" />
+<meta property="og:site_name" content="Eibhlín F. O’Dwyer" />
+<meta property="og:image" content="https://efod.co.uk/assets/images/post_aoc_25.3.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-12-03T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://efod.co.uk/assets/images/post_aoc_25.3.jpg" />
+<meta property="twitter:title" content="Advent Of Code 2025, Day 3" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Eibhlín O'Dwyer"},"dateModified":"2025-12-03T00:00:00+00:00","datePublished":"2025-12-03T00:00:00+00:00","description":"In which I write my first recursive function ever","headline":"Advent Of Code 2025, Day 3","image":"https://efod.co.uk/assets/images/post_aoc_25.3.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-3/"},"url":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-3/"}</script>
+<!-- End Jekyll SEO tag -->
+
+        <link rel="stylesheet" href="/assets/css/main.css">
+
+        <h1 class="post-headline">Eibhlín F. O'Dwyer</h1>
+        <h4 class="post-description">music | linguistics | fiction | gender | linux</h4>
+
+        
+  
+
+
+
+
+
+
+
+
+
+<div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/now/">Now</a>
+        <a href="/blog/">Blog</a>
+        <a href="/archive/">Archive</a>
+</div>
+
+        <!-- Analytics by Umami -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="77fdcd09-2963-4178-89a2-ab4498f0a849"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+
+        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.1/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Advent Of Code 2025, Day 3</h1>
+<span>
+  <i class="fa fa-tag"></i>
+  
+    
+    <a href="/tag/python">python</a>
+    |
+    
+  
+    
+    <a href="/tag/aoc">aoc</a>
+    
+  
+</span>
+
+<p class="meta"><small>December 03, 2025</small></p>
+
+<p>This is the third in a series of blog posts about the 2025 Advent of Code. For previous entries in this thrilling series, see
+<a href="/tag/aoc">here</a>.</p>
+
+<h2 id="day-3-lobby">Day 3: Lobby</h2>
+<p><a href="https://adventofcode.com/2025/day/3" target="_blank" rel="noopener noreferrer">Advent of Code: Day 3</a></p>
+
+<h3 id="part-one">Part One</h3>
+<p>Once again I am side tracked from my main quest of decorating the North Pole by an Elf asking for help fixing up the lifts. I need to restore power from the emergency battery banks. The banks are rendered as a string of numbers such as 3121910778619, with each number representing a battery and its power rating. I have to turn on exactly 2 batteries and provide the sum total of power provided by all the battery banks. The correct batteries in each bit of input form the highest two-digit number, read from left to right, where I can skip whatever numbers I want between the first digit and the last. So in 3121<strong>9</strong>1077861<strong>9</strong> the highest number I can make is 99. Note that if the string were 3121410775689, the highest possible number is 89: I cannot rearrange the numbers. I have not explained this that well, but it’ll have to do. On to the code!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#! /usr/bin/env python3
+</span>
+<span class="k">def</span> <span class="nf">get_joltage</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span><span class="n">array</span><span class="p">,</span><span class="nb">sum</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">magnitude</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">sum</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lim</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">-</span> <span class="n">magnitude</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">cut_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="n">lim</span><span class="p">]</span>
+
+        <span class="n">max_val</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">cut_array</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">cut_array</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="n">max_val</span><span class="p">)</span>
+
+        <span class="n">total</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">max_val</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="nb">sum</span> <span class="o">+=</span> <span class="n">total</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):]</span>
+
+        <span class="k">return</span> <span class="nf">get_joltage</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+
+<span class="n">banks_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">joltage_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">input.txt</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">input</span><span class="p">:</span>
+    <span class="n">banks_list</span> <span class="o">=</span> <span class="nb">input</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">splitlines</span><span class="p">()</span>
+    <span class="n">banks_list</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">banks_list</span> <span class="k">if</span> <span class="n">line</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">bank</span> <span class="ow">in</span> <span class="n">banks_list</span><span class="p">:</span>
+    <span class="n">joltage_sum</span> <span class="o">+=</span> <span class="nf">get_joltage</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">bank</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">joltage_sum</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Initially I thought this could be achieved with some fancy regex, and it probably can. But I did regex yesterday, and I wanted to try something new today. I began by writing a whole bunch of very small functions, that would do things like grab the first instance of the largest number in the string, and then try to find the second largest number that followed it. It quickly became apparent that this was both impractical and (crucially) non-functional.</p>
+
+<p>I also had a hunch that I’d need to be able to capture longer numbers for part 2. So I needed to find a way to make my code</p>
+
+<ol>
+  <li>More flexible than the hard-coded method I’d come up with, and</li>
+  <li>Efficiently use the same function for grabbing each digit.</li>
+</ol>
+
+<p>As I mused, I remembered a coding class I’d attended years and years ago. They spoke about recursion, and at the time I fully didn’t get it. But after reminding myself of what recursion was for (with a handy bit of ELI5 from an LLM), I realised that it was the perfect method. All I needed to do was find the repeatable set of actions needed to find the solution, which you see above. The critical part of this code is:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_joltage</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span><span class="n">array</span><span class="p">,</span><span class="nb">sum</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">magnitude</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">sum</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lim</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">-</span> <span class="n">magnitude</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">cut_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:</span><span class="n">lim</span><span class="p">]</span>
+
+        <span class="n">max_val</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">cut_array</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">cut_array</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="n">max_val</span><span class="p">)</span>
+
+        <span class="n">total</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">max_val</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="nb">sum</span> <span class="o">+=</span> <span class="n">total</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):]</span>
+
+        <span class="k">return</span> <span class="nf">get_joltage</span><span class="p">(</span><span class="n">magnitude</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>I’ll try to keep this brief, but in essence, we define a function called get_joltage, that needs three bits of input: the order of magnitude the solution needs to be in (<code class="language-plaintext highlighter-rouge">magnitude</code>), the string of numbers to work on (<code class="language-plaintext highlighter-rouge">array</code>), and the running total of the solution (<code class="language-plaintext highlighter-rouge">sum</code>).</p>
+
+<p>The function first checks if <code class="language-plaintext highlighter-rouge">magnitude</code> is 0, and if so it concludes its run by returning the current value of <code class="language-plaintext highlighter-rouge">sum</code>. If <code class="language-plaintext highlighter-rouge">magnitude</code> is greater than zero, then we move onto the fun part.</p>
+
+<p>First we find the last possible point in the array that we can begin from. Remember that we have to read left to right, and can’t rearrange the numbers. Therefore, our tens digit can be anything up to and including the penultimate digit in the string. Once we have the cut-off point, we trim the array up to that part of the string.</p>
+
+<p>Next, we find the highest single digit in the spliced string, and also make a note of exactly where in the list it appears. Then we make sure it is an integer, and multiply it by 10^<code class="language-plaintext highlighter-rouge">magnitude -1</code>. There is probably a less noddy way to do this.</p>
+
+<p>Then we increase the running sum by the new value we’ve found, and cut the number string right after the number we found, creating a new one.</p>
+
+<p>Finally we feed it all back into another run of the function, decreasing <code class="language-plaintext highlighter-rouge">magnitude</code> by one, and feeding in the new values for <code class="language-plaintext highlighter-rouge">array</code> and <code class="language-plaintext highlighter-rouge">sum</code>.</p>
+
+<p>After that, we just need a <code class="language-plaintext highlighter-rouge">for</code> loop to run through each line of input (I added a line to strip any blank lines as my code freaked out over a blank line at the end of the input file). And then it spits out the answer in record time!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>time ./part_1.py
+$REDACTED$
+./part_1.py  0.02s user 0.01s system 97% cpu 0.028 total
+</code></pre></div></div>
+
+<h3 id="part-2">Part 2</h3>
+<p>Scotty, we need more power! Now we need to turn on twelve batteries instead of two. My hunch was correct (although I had guessed that it would be three), and so the work I did to make my code flexible has massively paid dividends. As with yesterday, all we need is a single character to get the right answer:</p>
+
+<p><code class="language-plaintext highlighter-rouge">joltage_sum += get_joltage(2,bank,0)</code> becomes <code class="language-plaintext highlighter-rouge">joltage_sum += get_joltage(12,bank,0)</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❯ time ./part_2.py
+$REDACTED$
+./part_2.py  0.03s user 0.00s system 91% cpu 0.032 total
+</code></pre></div></div>
+
+<p>Honestly, I’m really proud of this one. It felt like a stretch, but completely within my grasp once I figured out the need for recursion. Incredibly satisfying to have it work.</p>
+
+—
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> © Eibhlín F. O'Dwyer 2025
+                    | Powered by Jekyll, GitHub Pages &amp;
+                    <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a> |
+                    Updated: 12/13/25
+            </small>
+          </p>
+
+          <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%73%69%74%65@%62%65%6F%64.%63%6F.%75%6B" target="_blank">
+        <i class="far fa-envelope"></i>
+    </a><a title="" class="social-button github" href="https://github.com/eibhei" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+    </a><a title="" class="social-button mastodon" href="https://chaosfem.tw/@0d_billie" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-mastodon"></i>
+    </a><a title="" class="social-button bluesky" href="https://bsky.app/profile/eibhei.beod.co.uk" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-bluesky"></i>
+    </a><a title="" class="social-button instagram" itemprop="sameAs" href="https://www.instagram.com/eibhei" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+
+        </footer>
+   </body>
+</html>

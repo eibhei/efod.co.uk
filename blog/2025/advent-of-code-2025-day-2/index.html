@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Advent Of Code 2025, Day 2 | Eibhlín F. O’Dwyer</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Advent Of Code 2025, Day 2" />
+<meta name="author" content="Eibhlín O'Dwyer" />
+<meta property="og:locale" content="en_GB" />
+<meta name="description" content="In which I spend more time doing regex than Python" />
+<meta property="og:description" content="In which I spend more time doing regex than Python" />
+<link rel="canonical" href="https://efod.co.uk/blog/2025/advent-of-code-2025-day-2/" />
+<meta property="og:url" content="https://efod.co.uk/blog/2025/advent-of-code-2025-day-2/" />
+<meta property="og:site_name" content="Eibhlín F. O’Dwyer" />
+<meta property="og:image" content="https://efod.co.uk/assets/images/post_aoc_25.2.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-12-02T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://efod.co.uk/assets/images/post_aoc_25.2.jpg" />
+<meta property="twitter:title" content="Advent Of Code 2025, Day 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Eibhlín O'Dwyer"},"dateModified":"2025-12-02T00:00:00+00:00","datePublished":"2025-12-02T00:00:00+00:00","description":"In which I spend more time doing regex than Python","headline":"Advent Of Code 2025, Day 2","image":"https://efod.co.uk/assets/images/post_aoc_25.2.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-2/"},"url":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+        <link rel="stylesheet" href="/assets/css/main.css">
+
+        <h1 class="post-headline">Eibhlín F. O'Dwyer</h1>
+        <h4 class="post-description">music | linguistics | fiction | gender | linux</h4>
+
+        
+  
+
+
+
+
+
+
+
+
+
+<div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/now/">Now</a>
+        <a href="/blog/">Blog</a>
+        <a href="/archive/">Archive</a>
+</div>
+
+        <!-- Analytics by Umami -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="77fdcd09-2963-4178-89a2-ab4498f0a849"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+
+        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.1/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Advent Of Code 2025, Day 2</h1>
+<span>
+  <i class="fa fa-tag"></i>
+  
+    
+    <a href="/tag/python">python</a>
+    |
+    
+  
+    
+    <a href="/tag/aoc">aoc</a>
+    
+  
+</span>
+
+<p class="meta"><small>December 02, 2025</small></p>
+
+<p>This is the second in a series of blog posts about the 2025 Advent of Code. For previous entries in this thrilling series, see
+<a href="/tag/aoc">here</a>.</p>
+
+<h2 id="day-2-gift-shop">Day 2: Gift Shop</h2>
+<p><a href="https://adventofcode.com/2025/day/2" target="_blank" rel="noopener noreferrer">Advent of Code: Day 2</a></p>
+
+<h3 id="part-one">Part One</h3>
+<p>Much like in real life as a tech support worker, I have been tasked with fixing a “really small problem”, while en route to do my intended job. The Elves need me to identify which gift shop product IDs are invalid. Simple. A product ID is just a number, and the invalid ones are where the number is just a sequence of digits repeated twice. For example, 55 is invalid, but 101 is valid.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#! /usr/bin/env python3
+</span><span class="kn">import</span> <span class="n">re</span>
+
+<span class="n">regex_rule</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sh">'</span><span class="s">^(</span><span class="se">\\</span><span class="s">d*)</span><span class="se">\\</span><span class="s">1$</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">invalid_ids_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">input.txt</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">input</span><span class="p">:</span>
+    <span class="n">id_ranges</span> <span class="o">=</span> <span class="nb">input</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">parse_input</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="nb">input</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">bound_lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">bound_upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_lower</span><span class="p">)</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_upper</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bounds</span>
+
+<span class="k">def</span> <span class="nf">check_id</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">regex_rule</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">id_range</span> <span class="ow">in</span> <span class="n">id_ranges</span><span class="p">:</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="nf">parse_input</span><span class="p">(</span><span class="n">id_range</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># Add one to make range work later
+</span>
+    <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span><span class="n">upper</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">check_id</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+            <span class="n">invalid_ids_sum</span> <span class="o">+=</span> <span class="nb">id</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">invalid_ids_sum</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After a bit more head scratching, I settled (reluctantly) on using regex for this. Regular expressions (regex for short) are a programmatic way of matching patterns in a given string. So you can write something like <code class="language-plaintext highlighter-rouge">'[a-z]'</code> which will match a single lowercase letter. You can start to get really fancy with it by adding operators such as <code class="language-plaintext highlighter-rouge">'*'</code>, <code class="language-plaintext highlighter-rouge">'+'</code>, and <code class="language-plaintext highlighter-rouge">'?'</code>; and you can also group matches together with brackets. It’s a really powerful tool, and it’s been around in its current, standardised form for about 50 years.</p>
+
+<p>And I hate it. It’s really picky, and extremely complicated to get write. I don’t think I have ever, or will ever, write a regular expression correctly the first time. An enormous shout-out at this stage to <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">regex101</a> without with I would not have been able to complete today’s challenge.</p>
+
+<p>It took a massive amount of trial and error, but finally I settled on the quite excellent <code class="language-plaintext highlighter-rouge">'^(\d*)\1$'</code>. The double quotes in the code above are a quirk of the way Python works, and not standard regex syntax.</p>
+
+<p>There are a few parts to this: <code class="language-plaintext highlighter-rouge">^</code>, <code class="language-plaintext highlighter-rouge">(\d)</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">\1</code>, and <code class="language-plaintext highlighter-rouge">$</code>. The carat and dollar characters denote the beginning and end of the string respectively. <code class="language-plaintext highlighter-rouge">(\d)</code> denotes a single numeric digit, and inclusion of the asterisk matches zero or more. So zero or more numeric digits (0-9), starting at the beginning of the string. Then we have <code class="language-plaintext highlighter-rouge">\1</code> which matches the previous match exactly once, immediately after the first match, and then the end of the string (the dollar). So 5353 is a match because 53 appears twice in a row, but 53253 doesn’t because there’s a 2 in between. Smart eh?</p>
+
+<p>Anyway, this took me most of the morning to figure out, with no small amount of under-breath cursing. But it worked! The rest of the script is pretty straightforward, we convert input in the format “22-99” into usable numbers (Python interprets that as a string of characters, not integars), and then iterate over all of the numbers in a given range running them against that regex.</p>
+
+<p>A quick scrub over the subreddit for the Advent of Code talks about more efficient ways of doing this, but I couldn’t really follow them to be quite honest. Anyway, we get our correct answer in under a second:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$REDACTED$
+./part_1.py  0.67s user 0.01s system 98% cpu 0.688 total
+</code></pre></div></div>
+
+<h3 id="part-2">Part 2</h3>
+<p>Wait! There are actually more invalid IDs! If the same sequence of digits is repeated <em>at least</em> twice, then it’s invalid. This… This was incredible. The Advent of Code always requires you to make small adjustments to your code to complete the second part, but this might be the smallest yet:</p>
+
+<p><code class="language-plaintext highlighter-rouge">'^(\d*)\1$'</code> becomes <code class="language-plaintext highlighter-rouge">'^(\d*)\1+$'</code></p>
+
+<p>A single character is all we needed to complete part 2! Adding the <code class="language-plaintext highlighter-rouge">+</code> after <code class="language-plaintext highlighter-rouge">\1</code> tells regex to look for one or more of the preceeding matching criteria. So now 535353 is an invalid ID that is successfully caught. I confess to feeling <em>extremely</em> smug when I figured out that it was the difference of one character.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❯ time ./part_2.py
+$REDACTED$
+./part_2.py  0.96s user 0.00s system 98% cpu 0.973 total
+</code></pre></div></div>
+
+<p>Again, under a second. I’m sure there are significant efficiencies to be gained here, but again, I’m just looking to complete the challenge. More tomorrow.</p>
+
+—
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> © Eibhlín F. O'Dwyer 2025
+                    | Powered by Jekyll, GitHub Pages &amp;
+                    <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a> |
+                    Updated: 12/13/25
+            </small>
+          </p>
+
+          <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%73%69%74%65@%62%65%6F%64.%63%6F.%75%6B" target="_blank">
+        <i class="far fa-envelope"></i>
+    </a><a title="" class="social-button github" href="https://github.com/eibhei" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+    </a><a title="" class="social-button mastodon" href="https://chaosfem.tw/@0d_billie" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-mastodon"></i>
+    </a><a title="" class="social-button bluesky" href="https://bsky.app/profile/eibhei.beod.co.uk" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-bluesky"></i>
+    </a><a title="" class="social-button instagram" itemprop="sameAs" href="https://www.instagram.com/eibhei" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+
+        </footer>
+   </body>
+</html>

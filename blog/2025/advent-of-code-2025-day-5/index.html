@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Advent Of Code 2025, Day 5 | Eibhlín F. O’Dwyer</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Advent Of Code 2025, Day 5" />
+<meta name="author" content="Eibhlín O'Dwyer" />
+<meta property="og:locale" content="en_GB" />
+<meta name="description" content="In which doing something backwards is the correct way for some reason" />
+<meta property="og:description" content="In which doing something backwards is the correct way for some reason" />
+<link rel="canonical" href="https://efod.co.uk/blog/2025/advent-of-code-2025-day-5/" />
+<meta property="og:url" content="https://efod.co.uk/blog/2025/advent-of-code-2025-day-5/" />
+<meta property="og:site_name" content="Eibhlín F. O’Dwyer" />
+<meta property="og:image" content="https://efod.co.uk/assets/images/post_aoc_25.5.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-12-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://efod.co.uk/assets/images/post_aoc_25.5.jpg" />
+<meta property="twitter:title" content="Advent Of Code 2025, Day 5" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Eibhlín O'Dwyer"},"dateModified":"2025-12-05T00:00:00+00:00","datePublished":"2025-12-05T00:00:00+00:00","description":"In which doing something backwards is the correct way for some reason","headline":"Advent Of Code 2025, Day 5","image":"https://efod.co.uk/assets/images/post_aoc_25.5.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-5/"},"url":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-5/"}</script>
+<!-- End Jekyll SEO tag -->
+
+        <link rel="stylesheet" href="/assets/css/main.css">
+
+        <h1 class="post-headline">Eibhlín F. O'Dwyer</h1>
+        <h4 class="post-description">music | linguistics | fiction | gender | linux</h4>
+
+        
+  
+
+
+
+
+
+
+
+
+
+<div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/now/">Now</a>
+        <a href="/blog/">Blog</a>
+        <a href="/archive/">Archive</a>
+</div>
+
+        <!-- Analytics by Umami -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="77fdcd09-2963-4178-89a2-ab4498f0a849"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+
+        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.1/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Advent Of Code 2025, Day 5</h1>
+<span>
+  <i class="fa fa-tag"></i>
+  
+    
+    <a href="/tag/python">python</a>
+    |
+    
+  
+    
+    <a href="/tag/aoc">aoc</a>
+    
+  
+</span>
+
+<p class="meta"><small>December 05, 2025</small></p>
+
+<p>This is the fifth in a series of blog posts about the 2025 Advent of Code. For previous entries in this thrilling series, see
+<a href="/tag/aoc">here</a>.</p>
+
+<p>The code is now up online and available for your reading pleasure! Check it out <a href="https://tea.odwyer.xyz/eibhlin/53.10_Advent-of-Code" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<h2 id="day-5-cafeteria">Day 5: Cafeteria</h2>
+<p><a href="https://adventofcode.com/2025/day/5" target="_blank" rel="noopener noreferrer">Advent of Code: Day 5</a></p>
+
+<h3 id="part-one">Part One</h3>
+<p>The Elves need my help in figuring out which ingredients are safe to use, and which are spoiled. They’ve given me a bunch of ingredient ID ranges, and then also a bunch of individual IDs. The ranges indicate fresh ingredients, and the individual IDs are the ones that need to be checked:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3-5
+10-14
+16-20
+12-18
+
+1
+5
+8
+11
+17
+32
+</code></pre></div></div>
+
+<p>This one is a <em>really</em> straightforward part one, to be honest. It’s simply a case of storing the ranges (which in the real data are in the billions and trillions), and then going through the list of checking each available ID and checking if it’s in the fresh ingredients range. I struggled a little on that logic to begin with, and started with a function that was way more complicated than it needed to be. What I actually did I can no longer recall, but it caused things to run for a <em>very</em> long time, and eventually spat out the wrong answer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
+</span><span class="k">def</span> <span class="nf">parse_range</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="nb">input</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">bound_lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">bound_upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_lower</span><span class="p">)</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_upper</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bounds</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">input.txt</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">raw_input</span><span class="p">:</span>
+    <span class="n">raw_list</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">splitlines</span><span class="p">()</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="n">raw_list</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="sh">""</span><span class="p">)</span>
+    <span class="n">fresh_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fresh_ranges_list</span> <span class="o">=</span> <span class="n">raw_list</span><span class="p">[:</span><span class="n">gap</span><span class="p">]</span>
+
+    <span class="n">available_list</span> <span class="o">=</span> <span class="n">raw_list</span><span class="p">[</span><span class="n">gap</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">available_list</span> <span class="o">=</span> <span class="p">[</span><span class="nf">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">available_list</span><span class="p">]</span>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">available_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">fresh_ranges_list</span><span class="p">:</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="nf">parse_range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">lower</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">upper</span><span class="p">:</span>
+                <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">break</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>There are definitely some efficiencies to be gained here. I don’t think it needs a function right at the top that is only called once (the eagle-eyed reader will note that this is an identical function to that used in <a href="/blog/2025/advent-of-code-2025-day-2/">day 2</a>), and I think I could import the data into two lists in a couple of lines of code rather than 6. Still, it works, and very rapidly!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>time ./part_1.py
+$REDACTED$
+./part_1.py  0.05s user 0.02s system 98% cpu 0.069 total
+</code></pre></div></div>
+
+<h3 id="part-2">Part 2</h3>
+<p>Now we need to just count the number of fresh ingredients in total. This should be easy, but it’s way more difficult than expected, due to the fact that the ranges are not unique, and have a lot of overlap (something I did not discover until much later). Given the sheer size of the ranges, it’s completely impractical to read the range and save each number to a new list, and then count the number of unique items therein (I should know, I tried).</p>
+
+<p>I eventually figured out that I could do it this way:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
+</span><span class="k">def</span> <span class="nf">parse_range</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="nb">input</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">-</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">bound_lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">bound_upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">parsed</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_lower</span><span class="p">)</span>
+    <span class="n">bounds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">bound_upper</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bounds</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">input.txt</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">raw_input</span><span class="p">:</span>
+    <span class="n">raw_list</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">splitlines</span><span class="p">()</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="n">raw_list</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="sh">""</span><span class="p">)</span>
+    <span class="n">fresh_ranges_list</span> <span class="o">=</span> <span class="n">raw_list</span><span class="p">[:</span><span class="n">gap</span><span class="p">]</span>
+
+    <span class="n">fresh_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">fresh_ranges_list</span><span class="p">:</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="nf">parse_range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">lower</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">fresh_list</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="n">lower</span><span class="p">,</span><span class="n">upper</span><span class="p">])</span>
+
+    <span class="n">fresh_list</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+    <span class="n">fl</span> <span class="o">=</span> <span class="n">fresh_list</span>
+
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nf">reversed</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">fl</span><span class="p">))):</span>
+        <span class="n">c_lo</span> <span class="o">=</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">c_hi</span> <span class="o">=</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">p_lo</span> <span class="o">=</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">p_hi</span> <span class="o">=</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">p_lo</span> <span class="o">&lt;=</span> <span class="n">c_lo</span> <span class="o">&lt;=</span> <span class="n">p_hi</span> <span class="ow">and</span> <span class="n">p_lo</span> <span class="o">&lt;=</span> <span class="n">c_hi</span> <span class="o">&lt;=</span> <span class="n">p_hi</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">p_lo</span> <span class="o">&lt;=</span> <span class="n">c_lo</span> <span class="o">&lt;=</span> <span class="n">p_hi</span> <span class="ow">and</span> <span class="n">c_hi</span> <span class="o">&gt;=</span> <span class="n">p_hi</span><span class="p">:</span>
+            <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_hi</span>
+            <span class="k">del</span> <span class="n">fl</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="k">continue</span>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">fl</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is one of the larger changes I’ve had to make in the course of this challenge between part one and two. I made some pretty silly mistakes initially, and timed out my ability to enter answers to the Advent of Code submission page for a while. I had the bright idea to store each range as an array of 2: the lower bound and the upper bound. Then from there, I could simply take the difference between the upper and lower bounds and it would work!</p>
+
+<p>Reader, it did not work. I was stuck for a very long time. What I hadn’t appreciated was that there are ranges where the lower bound starts in the middle of another saved range. Completely useless to me, as I want the <em>unique</em> number. So I wrote up some logic to sort the ranges, and then go through one by one and amend the values according to neighbours. This still did not work, and I had to figure out a way to merge the ranges together.</p>
+
+<p>This was not pretty, and it took me a long time to realise that the way I’d set up my loop meant that removing entries in the array would break the code before I could get the answer. Finally I hit on going backwards through the list of ranges, safe in the knowledge that removing a range wouldn’t break anything by deleting things that the program expected to check later on.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❯ time ./part_2.py
+$REDACTED$
+./part_2.py  0.02s user 0.00s system 96% cpu 0.026 total
+</code></pre></div></div>
+
+<p>It runs, and is very quick about it. I was so uncertain that I’d gotten the right answer (some absurdly large number) that I thought I’d misread the submission page when it said I was correct, twice.</p>
+
+<p>On to day 6! It’s the weekend tomorrow, and I will level with you that I’ve been managing to do much of this at my desk, where I tend to spend very little time on a weekend. Hopefully I’ll be able to give the next couple of challenges a try, and not develop a backlog, but we’ll just have to see.</p>
+
+—
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> © Eibhlín F. O'Dwyer 2025
+                    | Powered by Jekyll, GitHub Pages &amp;
+                    <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a> |
+                    Updated: 12/13/25
+            </small>
+          </p>
+
+          <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%73%69%74%65@%62%65%6F%64.%63%6F.%75%6B" target="_blank">
+        <i class="far fa-envelope"></i>
+    </a><a title="" class="social-button github" href="https://github.com/eibhei" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+    </a><a title="" class="social-button mastodon" href="https://chaosfem.tw/@0d_billie" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-mastodon"></i>
+    </a><a title="" class="social-button bluesky" href="https://bsky.app/profile/eibhei.beod.co.uk" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-bluesky"></i>
+    </a><a title="" class="social-button instagram" itemprop="sameAs" href="https://www.instagram.com/eibhei" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+
+        </footer>
+   </body>
+</html>

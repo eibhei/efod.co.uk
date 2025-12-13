@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Advent Of Code 2025, Day 4 | Eibhlín F. O’Dwyer</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Advent Of Code 2025, Day 4" />
+<meta name="author" content="Eibhlín O'Dwyer" />
+<meta property="og:locale" content="en_GB" />
+<meta name="description" content="In which I remain on the struggle bus until 10pm" />
+<meta property="og:description" content="In which I remain on the struggle bus until 10pm" />
+<link rel="canonical" href="https://efod.co.uk/blog/2025/advent-of-code-2025-day-4/" />
+<meta property="og:url" content="https://efod.co.uk/blog/2025/advent-of-code-2025-day-4/" />
+<meta property="og:site_name" content="Eibhlín F. O’Dwyer" />
+<meta property="og:image" content="https://efod.co.uk/assets/images/post_aoc_25.4.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-12-04T00:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://efod.co.uk/assets/images/post_aoc_25.4.jpg" />
+<meta property="twitter:title" content="Advent Of Code 2025, Day 4" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Eibhlín O'Dwyer"},"dateModified":"2025-12-04T00:00:00+00:00","datePublished":"2025-12-04T00:00:00+00:00","description":"In which I remain on the struggle bus until 10pm","headline":"Advent Of Code 2025, Day 4","image":"https://efod.co.uk/assets/images/post_aoc_25.4.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-4/"},"url":"https://efod.co.uk/blog/2025/advent-of-code-2025-day-4/"}</script>
+<!-- End Jekyll SEO tag -->
+
+        <link rel="stylesheet" href="/assets/css/main.css">
+
+        <h1 class="post-headline">Eibhlín F. O'Dwyer</h1>
+        <h4 class="post-description">music | linguistics | fiction | gender | linux</h4>
+
+        
+  
+
+
+
+
+
+
+
+
+
+<div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/now/">Now</a>
+        <a href="/blog/">Blog</a>
+        <a href="/archive/">Archive</a>
+</div>
+
+        <!-- Analytics by Umami -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="77fdcd09-2963-4178-89a2-ab4498f0a849"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/favicons/site.webmanifest">
+
+
+        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v6.7.1/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Advent Of Code 2025, Day 4</h1>
+<span>
+  <i class="fa fa-tag"></i>
+  
+    
+    <a href="/tag/python">python</a>
+    |
+    
+  
+    
+    <a href="/tag/aoc">aoc</a>
+    
+  
+</span>
+
+<p class="meta"><small>December 04, 2025</small></p>
+
+<p>This is the fourth in a series of blog posts about the 2025 Advent of Code. For previous entries in this thrilling series, see
+<a href="/tag/aoc">here</a>.</p>
+
+<h2 id="day-4-printing-department">Day 4: Printing Department</h2>
+<p><a href="https://adventofcode.com/2025/day/4" target="_blank" rel="noopener noreferrer">Advent of Code: Day 4</a></p>
+
+<h3 id="part-one">Part One</h3>
+<p>This time I am asked with helping the Elves move some reams of wrapping paper around. I am presented with some data that looks like this and told that the @ symbols are reams of paper. I have to count the reams which have fewer than 4 other reams adjacent.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.
+</code></pre></div></div>
+
+<p>I’ll level with you. I <em>really</em> struggled on this one. I’ve battered my head against it for most of the day. Selecting a coordinate is easy enough, and checking the character is trivial. But accounting for edge cases, where there are no adjacent cells on one or two sides really threw me. For a long, long time. After I finally got it, I was so frazzled that putting together my loop was an effort in so much trial and error that I managed to crash my laptop! Anyway, the finished article is about as gorey as it can get. I’m having to keep reminding myself that it’s not the elegance or efficiency that counts, but simply getting there.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#! /usr/bin/env python3
+</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">input.txt</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">input</span><span class="p">:</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="nf">list</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="nf">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">]</span>
+
+<span class="n">x_max</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">is_corner</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">x_max</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y_max</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">x_max</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y_max</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">check_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">@</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">get_adj</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">adjacents</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># position 0
+</span>        <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>   <span class="c1"># position 1
+</span>        <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># position 2
+</span>        <span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>   <span class="c1"># position 3
+</span>        <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>   <span class="c1"># position 4
+</span>        <span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># position 5
+</span>        <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>   <span class="c1"># position 6
+</span>        <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># position 7
+</span>    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">removals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">removals</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">adjacents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">adjacents</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x_max</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">removals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">removals</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">adjacents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">adjacents</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">removals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">removals</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">adjacents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">adjacents</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y_max</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">removals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">removals</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">adjacents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">adjacents</span>
+    <span class="k">return</span> <span class="n">adjacents</span>
+
+<span class="n">papers_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x_max</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y_max</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">check_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nf">is_corner</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+                <span class="n">papers_count</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">adjacents</span> <span class="o">=</span> <span class="nf">get_adj</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">adjacents</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nf">check_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">count</span> <span class="o">+=</span><span class="mi">1</span>
+                <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">papers_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">papers_count</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Look, this is not pretty. There’s probably a lot that doesn’t need to be a function in there. But I’m still pleased with the outcome. It stores the maximum possible set of surrounding coordinates as a list, and then scrubs that list when x or y are at their minimums or maximums. There is almost certainly a more programmatic way to achieve this, and if I ever manage to face looking at this again, I’ll come back and tidy it up.</p>
+
+<p>Anyway, after that it’s just a simple for loop for each coordinate in the grid, checking for a ream of paper and then counting the surroundings. Straightforward enough, and a run is relatively quick too:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>time ./part_1.py
+$REDACTED$
+./part_1.py  0.03s user 0.00s system 98% cpu 0.030 total
+</code></pre></div></div>
+
+<h3 id="part-2">Part 2</h3>
+<p>Now we need to update the grid as we go, removing a ream every time we find one that has fewer than 4 adjacent reams. Then we run the process again until we can no longer remove from the grid. This <em>should</em> have been straightforward, but by the time I got to it delerium was setting in and I hadn’t blinked in whole minutes. After a long break I came back to it, and with some intensive Googling, I finally cracked it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">...</span>
+<span class="k">def</span> <span class="nf">change_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">x</span><span class="sh">"</span>
+<span class="bp">...</span>
+<span class="n">papers_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">previous_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x_max</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y_max</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nf">check_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nf">is_corner</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+                    <span class="n">papers_count</span><span class="o">+=</span><span class="mi">1</span>
+                    <span class="n">previous_count</span><span class="o">+=</span><span class="mi">1</span>
+                    <span class="nf">change_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">adjacents</span> <span class="o">=</span> <span class="nf">get_adj</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">adjacents</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nf">check_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                            <span class="n">count</span> <span class="o">+=</span><span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">papers_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">previous_count</span><span class="o">+=</span><span class="mi">1</span>
+                        <span class="nf">change_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">previous_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">previous_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">papers_count</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>For something as simple as this, that change took me far longer than it should. I had a bunch of bugs staring me in the face, and I just wasn’t seeing it. I actually got the correct answer before the code was correct: I ended up in an infinite loop where the correct answer was being repeatedly printed, but the code wasn’t exiting. The reason being that I forgot that you can’t just set the variable <code class="language-plaintext highlighter-rouge">False</code> to exit a <code class="language-plaintext highlighter-rouge">while True:</code> loop.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❯ time ./part_2.py
+$REDACTED$
+./part_2.py  0.41s user 0.01s system 99% cpu 0.415 total
+</code></pre></div></div>
+<p>Anyway, this version runs, and it’s still in under a second! I saw some really awesome visualisations of this second half on Reddit, and I’m tempted to try and put one together some time.</p>
+
+—
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> © Eibhlín F. O'Dwyer 2025
+                    | Powered by Jekyll, GitHub Pages &amp;
+                    <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a> |
+                    Updated: 12/13/25
+            </small>
+          </p>
+
+          <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%73%69%74%65@%62%65%6F%64.%63%6F.%75%6B" target="_blank">
+        <i class="far fa-envelope"></i>
+    </a><a title="" class="social-button github" href="https://github.com/eibhei" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+    </a><a title="" class="social-button mastodon" href="https://chaosfem.tw/@0d_billie" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-mastodon"></i>
+    </a><a title="" class="social-button bluesky" href="https://bsky.app/profile/eibhei.beod.co.uk" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-bluesky"></i>
+    </a><a title="" class="social-button instagram" itemprop="sameAs" href="https://www.instagram.com/eibhei" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+
+        </footer>
+   </body>
+</html>
